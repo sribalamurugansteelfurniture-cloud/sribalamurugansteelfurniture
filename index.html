@@ -815,7 +815,7 @@ button{font-family:'DM Sans',sans-serif;cursor:pointer;}
 <script>
 // ── DATA ──
 const PRODS=[
-  {id:1,name:'Double Door Almirah',cat:'Almirahs',price:8500,desc:'2-door steel almirah with mirror, 3 shelves and hanging rod. Anti-rust powder coated.',icon:'🗄️',badge:'Bestseller',colors:['#8B7355','#1a1a1a','#C0C0C0','#FFFFFF','#2F4F4F'],cn:['Ivory Brown','Jet Black','Silver Grey','Pearl White','Forest Green'],sizes:['Small (3 ft)','Medium (4 ft)','Large (5 ft)','XL (6 ft)'],finishes:['Matte','Gloss','Texture','Hammered']},
+  {id:1,name:'Double Door Almirah',cat:'Almirahs',price:8500,desc:'2-door steel almirah with mirror, 3 shelves and hanging rod. Anti-rust powder coated.',icon:'steel-bero-1.jpg',badge:'Bestseller',colors:['#8B7355','#1a1a1a','#C0C0C0','#FFFFFF','#2F4F4F'],cn:['Ivory Brown','Jet Black','Silver Grey','Pearl White','Forest Green'],sizes:['Small (3 ft)','Medium (4 ft)','Large (5 ft)','XL (6 ft)'],finishes:['Matte','Gloss','Texture','Hammered']},
   {id:2,name:'Executive Office Chair',cat:'Chairs',price:4200,desc:'High-back chair with lumbar support, adjustable height and armrests. CRCA steel frame.',icon:'🪑',badge:'Popular',colors:['#1a1a1a','#8B0000','#00008B','#2F4F4F'],cn:['Jet Black','Maroon','Navy Blue','Forest Green'],sizes:['Standard','Heavy Duty','Executive'],finishes:['Mesh','Fabric','Rexine']},
   {id:3,name:'Steel Study Table',cat:'Tables',price:5800,desc:'Spacious study table with drawer, CPU stand and keyboard tray. Powder-coated finish.',icon:'🪞',badge:null,colors:['#8B7355','#1a1a1a','#C0C0C0','#808080'],cn:['Ivory Brown','Jet Black','Silver','Slate Grey'],sizes:['3 ft','4 ft','5 ft','6 ft'],finishes:['Matte','Gloss','Texture']},
   {id:4,name:'5-Shelf Book Rack',cat:'Shelves',price:3200,desc:'Open rack with 5 adjustable shelves. Perfect for books, files and display items.',icon:'📚',badge:null,colors:['#1a1a1a','#C0C0C0','#8B7355','#FFFFFF'],cn:['Jet Black','Silver','Ivory Brown','Pearl White'],sizes:['3 ft','4 ft','5 ft'],finishes:['Matte','Gloss','Epoxy']},
@@ -956,7 +956,9 @@ function renderP(){
   g.innerHTML=list.map(p=>`
     <div class="pcard" onclick="openProd(${p.id})">
       <div class="pthumb">
-        <div class="pthumb-icon">${p.icon}</div>
+        <img src="${p.icon}"
+     alt="${p.name}"
+     style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
         ${p.badge?`<div class="pbadge">${p.badge}</div>`:''}
         <div class="poverlay">
           <button class="ovbtn ovview" onclick="event.stopPropagation();openProd(${p.id})">👁 View</button>
@@ -996,7 +998,12 @@ function renderPD(){
       <div class="viewer" id="vwr">
         <div class="vlabel">3D Preview</div>
         <div class="vhint">↔ Drag to rotate</div>
-        <div class="vmodel fl" id="vmod">${p.icon}</div>
+        <div class="vmodel fl" id="vmod">
+  <img id="mainimg"
+       src="${p.icon}"
+       alt="${p.name}"
+       style="width:100%;height:100%;object-fit:contain;padding:20px;">
+</div>
         <div class="vtabs">
           <button class="vtab on" onclick="vtab('Front',this)">Front</button>
           <button class="vtab" onclick="vtab('Side',this)">Side</button>
@@ -1005,12 +1012,26 @@ function renderPD(){
         </div>
       </div>
       <div class="thumbstrip">
-        <div class="vthumb on">${p.icon}</div>
-        <div class="vthumb">🔧</div>
-        <div class="vthumb">📐</div>
-        <div class="vthumb" style="background:${p.colors[c.color]};min-width:58px;"></div>
-      </div>
-    </div>
+
+  <div class="vthumb">
+    <img src="steel-bero-1.jpg"
+         style="width:100%;height:100%;object-fit:cover;border-radius:8px;"
+         onclick="document.getElementById('mainimg').src='steel-bero-1.jpg'">
+  </div>
+
+  <div class="vthumb">
+    <img src="steel-bero-2.jpg"
+         style="width:100%;height:100%;object-fit:cover;border-radius:8px;"
+         onclick="document.getElementById('mainimg').src='steel-bero-2.jpg'">
+  </div>
+
+  <div class="vthumb">
+    <img src="steel-bero-3.jpg"
+         style="width:100%;height:100%;object-fit:cover;border-radius:8px;"
+         onclick="document.getElementById('mainimg').src='steel-bero-3.jpg'">
+  </div>
+
+</div>
     <div>
       <div class="pcat-tag">${p.cat}</div>
       <h1 class="pd-title">${p.name}</h1>

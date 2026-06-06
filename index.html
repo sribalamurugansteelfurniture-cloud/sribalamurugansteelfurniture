@@ -849,6 +849,7 @@ function goStep(n){
   for(let i=0;i<3;i++){document.getElementById('rd'+i).classList.toggle('done',i<n);}
 }
 function enterShowroom(){
+
   USER={
     name:(document.getElementById('rfn').value.trim()+' '+document.getElementById('rln').value.trim()).trim(),
     phone:document.getElementById('rph').value.trim(),
@@ -856,8 +857,9 @@ function enterShowroom(){
     city:document.getElementById('rcity').value,
     joined:new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})
   };
-  
-   fetch("https://script.google.com/macros/s/AKfycbzC0U1-IKccxzF8poiBTWoCGXeqJfrHYOrvPD2Q6npL1Jgv33Em0YMGxIGiqDVSMXTd/exec", {
+
+  // Send data to Google Sheets in background
+  fetch("https://script.google.com/macros/s/AKfycbzC0U1-IKccxzF8poiBTWoCGXeqJfrHYOrvPD2Q6npL1Jgv33Em0YMGxIGiqDVSMXTd/exec", {
     method: "POST",
     body: new URLSearchParams({
       name: USER.name,
@@ -865,13 +867,16 @@ function enterShowroom(){
       email: USER.email,
       city: USER.city
     })
-  });
+  }).catch(err => console.log("Sheet Error:", err));
 
   const reg=document.getElementById('pg-register');
   reg.style.transition='opacity .42s ease,transform .42s ease';
-  reg.style.opacity='0'; reg.style.transform='translateY(-20px) scale(1.02)';
+  reg.style.opacity='0';
+  reg.style.transform='translateY(-20px) scale(1.02)';
+
   setTimeout(()=>{
-    reg.classList.remove('active');reg.style.cssText='';
+    reg.classList.remove('active');
+    reg.style.cssText='';
     document.getElementById('main-nav').classList.add('vis');
     nav('home');
     toast('👋 Welcome, '+USER.name.split(' ')[0]+'! Explore our showroom.');
